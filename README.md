@@ -10,6 +10,7 @@ A Claude Code custom agent that automates DoorDash group orders from your browse
 2. **Claude in Chrome** MCP extension — install from the Claude Code MCP marketplace, then connect it to your Chrome browser
 3. A **DoorDash account** with a saved delivery address
 4. Chrome open with DoorDash accessible (you must be logged in)
+5. *(Optional)* **Microsoft 365 connector** — only needed if you want the agent to collect orders from Teams chat automatically. Without it, just paste the orders into your prompt.
 
 ---
 
@@ -19,9 +20,9 @@ A Claude Code custom agent that automates DoorDash group orders from your browse
 2. Copy `lunch-order-agent.md` into your Claude Code agents folder:
    - **Mac/Linux:** `~/.claude/agents/`
    - **Windows:** `C:\Users\<YourName>\.claude\agents\`
-3. Copy `lunch-order.md` into your Claude Code skills folder:
-   - **Mac/Linux:** `~/.claude/skills/`
-   - **Windows:** `C:\Users\<YourName>\.claude\skills\`
+3. Copy the `skills/lunch-order/` **folder** (containing `SKILL.md`) into your Claude Code skills folder, so you end up with `~/.claude/skills/lunch-order/SKILL.md`:
+   - **Mac/Linux:** `cp -r skills/lunch-order ~/.claude/skills/`
+   - **Windows:** copy the folder to `C:\Users\<YourName>\.claude\skills\lunch-order\`
 4. Restart Claude Code
 
 That's it. No API keys, no config files, no environment variables.
@@ -38,13 +39,17 @@ That's it. No API keys, no config files, no environment variables.
 
 ### Step 2 — Collect orders
 
-Gather what everyone wants (Teams message, Slack, email, verbally — anything works).
+Gather what everyone wants (Teams message, Slack, email, verbally — anything works). If you have the Microsoft 365 connector set up, the agent can search your Teams chats for today's orders itself — otherwise just paste them.
 
 ### Step 3 — Run the agent
 
 Open Claude Code and say something like:
 
 > *"Order lunch from [restaurant]. Here are the orders: [paste orders]. Group order link: https://drd.sh/cart/..."*
+
+or, with the Teams connector:
+
+> *"Collect today's lunch orders from Teams and order from [restaurant]. Group order link: https://drd.sh/cart/..."*
 
 The agent will:
 1. Parse the orders into a structured list
@@ -64,7 +69,7 @@ Review the summary, reply **"confirm"**, and the agent hands off to checkout. Pa
 - **The agent never places an order without your explicit confirmation.** It stops at the cart review step every time.
 - If an item can't be found on the menu, the agent flags it immediately and waits for a substitute before continuing.
 - For best results, share the `drd.sh` Group Order link (not the restaurant URL) — it goes straight to the right cart.
-- The agent works with any DoorDash restaurant, not just ones listed in this repo.
+- The agent works with any DoorDash restaurant, not just ones listed in this repo. (The agent file ships with a cached menu-position table for Brennan's Delicatessen — orders from other restaurants work too, they just run a one-time menu scan first.)
 
 ---
 
@@ -73,7 +78,7 @@ Review the summary, reply **"confirm"**, and the agent hands off to checkout. Pa
 | File | Purpose |
 |------|---------|
 | `lunch-order-agent.md` | Agent definition — install in `~/.claude/agents/` |
-| `lunch-order.md` | Skill trigger — install in `~/.claude/skills/` |
+| `skills/lunch-order/SKILL.md` | Skill trigger — install the folder as `~/.claude/skills/lunch-order/` |
 
 ---
 
