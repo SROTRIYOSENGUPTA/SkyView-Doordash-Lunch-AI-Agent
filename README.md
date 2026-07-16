@@ -90,3 +90,11 @@ Review the summary, reply **"confirm"**, and the agent hands off to checkout. Pa
 | Claude in Chrome MCP | Latest |
 | Chrome | Any modern version |
 | DoorDash | Active account required |
+
+---
+
+## Author
+
+**Srotriyo Sengupta** - SkyView Investment Advisors
+
+(c) 2026 Srotriyo Sengupta. All rights reserved.
